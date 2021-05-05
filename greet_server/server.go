@@ -2,13 +2,15 @@ package main
 
 import (
 	"fmt"
+	"github.com/mthaler/grpc-greeting-service/greetpb"
 	"google.golang.org/grpc"
-	"grpc-greeting-service/greetpb"
 	"log"
 	"net"
 )
 
-type server struct {}
+type server struct {
+	greetpb.UnimplementedGreetServiceServer
+}
 
 func main() {
 	fmt.Println("Hello, World")
@@ -21,7 +23,7 @@ func main() {
 	s := grpc.NewServer()
 	greetpb.RegisterGreetServiceServer(s, &server{})
 
-	if s := s.Serve(lis); err != nil {
+	if err := s.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve: %v", err)
 	}
 }
