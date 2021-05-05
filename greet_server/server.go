@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/mthaler/grpc-greeting-service/greetpb"
+	"github.com/mthaler/grpc-greet-service/greetpb"
 	"google.golang.org/grpc"
 	"log"
 	"net"

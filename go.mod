@@ -1,4 +1,4 @@
-module github.com/mthaler/grpc-greeting-service
+module github.com/mthaler/grpc-greet-service
 
 go 1.15
 
