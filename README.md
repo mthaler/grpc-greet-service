@@ -21,3 +21,6 @@ $ export PATH="$PATH:$(go env GOPATH)/bin"
 ```bash
 $ protoc --go_out=. --go-grpc_out=.  greetpb/greet.proto
 ```
+## Error handling
+
+There is a really good guide for gRPC error handling: https://avi.im/grpc-errors/
