@@ -6,6 +6,7 @@ import (
 	"github.com/mthaler/grpc-greet-service/greetpb"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/status"
 	"io"
 	"log"
@@ -13,9 +14,39 @@ import (
 )
 
 func main() {
-
 	fmt.Println("Hello, I am a client")
+
+	//connect()
+	connectTLS()
+}
+
+func connect() {
 	cc, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
+	if err != nil {
+		log.Fatalf("Could not connect: %v", err)
+	}
+	defer cc.Close()
+
+	c := greetpb.NewGreetServiceClient(cc)
+
+	// doUnary(c)
+	// doServerStreaming(c)
+	// doClientStreaming(c)
+	// doBiDiStreaming(c)
+	doUnaryWithDeadline(c, 1 * time.Second)
+	doUnaryWithDeadline(c, 5 * time.Second)
+}
+
+func connectTLS() {
+	certFile := "ssl/ca.crt"
+	creds, sslErr := credentials.NewClientTLSFromFile(certFile, "")
+	if sslErr != nil {
+		log.Fatalf("Error loading CA trust certificate: %v", sslErr)
+		return
+	}
+	opts := grpc.WithTransportCredentials(creds)
+
+	cc, err := grpc.Dial("localhost:50051", opts)
 	if err != nil {
 		log.Fatalf("Could not connect: %v", err)
 	}
