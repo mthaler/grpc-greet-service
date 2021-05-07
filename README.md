@@ -23,4 +23,4 @@ $ protoc --go_out=. --go-grpc_out=.  greetpb/greet.proto
 ```
 ## Error handling
 
-There is a really good guide for gRPC error handling: https://avi.im/grpc-errors/
+The greet service does not implement error handling. A good guide for gRPC error handling can be found here: https://avi.im/grpc-errors/
